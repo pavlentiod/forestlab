@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "forest-lab"
+version = "0.1.0"
+description = ""
+authors = ["pavlentiod <levap.spb@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+alembic = "^1.13.2"
+sqlalchemy = {extras = ["all"], version = "^2.0.27"}
+asyncpg = "^0.29.0"
+fastapi = {extras = ["all"], version = "^0.109.2"}
+uuid = "^1.30"
+pandas = "^2.2.2"
+bs4 = "^0.0.2"
+pytest = "^8.2.2"
+pymongo = "^4.8.0"
+beanie = "^1.26.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,23 @@
+{
+  "id": "uuid",
+  "title": "title",
+  "date": "datetime",
+  "runners": {
+    "runner_id.group_id": {
+      "name": "name surname",
+    }
+  },
+  "groups": {
+    "group_id": {
+      "name": "name"
+    }
+  },
+  "legs": {
+    "leg_id": {
+      "start": "int",
+      "end": "int"
+    }
+  },
+  "splits_df": {},
+  "courses_df": {},
+}
