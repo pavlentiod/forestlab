@@ -4,7 +4,8 @@ import random
 import pandas as pd
 from pandas import Timedelta, DataFrame
 
-from src.services.event.parser.src.utils import fill_GD, dispersions, null, bs, rl, course
+from src.services.event.subservices.parser.src.punching_systems.utils import fill_GD, dispersions, null, bs, rl, \
+    points_to_routes
 from bs4 import BeautifulSoup as BS, BeautifulSoup
 from bs4.element import ResultSet
 import re
@@ -78,13 +79,13 @@ def points(tr: ResultSet, th: ResultSet, tm_index: int,
             disp: list = [241] + [cp(i.text) for i in th[tm_index:]]
         except Exception as e:
             print(e)
-        return dict(zip(names, [course(disp) for i in r]))
+        return dict(zip(names, [points_to_routes(disp) for i in r]))
     f = lambda x: re.search('\[\d{2,3}\]', str(x))
     l: list = []
     for j in r:
         s = bs(tr[j + 1]).find_all('td')
         dist = [241] + [int(f(i).group()[1:-1]) if f(i) is not None else 00 for i in s[tm_index:-1]] + [240]
-        l.append(course(dist))
+        l.append(points_to_routes(dist))
     return dict(zip(names, l))
 
 

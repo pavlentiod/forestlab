@@ -7,7 +7,7 @@ import json
 import pandas as pd
 from pandas import Timedelta
 
-from src.services.event.parser.src.utils import course, dispersions
+from src.services.event.subservices.parser.src.punching_systems.utils import dispersions, points_to_routes
 
 
 def SO_parsing(soup):
@@ -33,7 +33,7 @@ def SO_parsing(soup):
                     f"{person['surname']} {person['name']}^{groups[person['group_id']]['name'].split(' ')[0]}").upper()
                 checked_points = [i for i in results[person_id]['splits'] if i['leg_time'] > 0]
                 points = [{'code': '241'}] + checked_points + [{'code': '240'}]
-                legs = course([int(points[i]["code"]) for i in range(len(points))])
+                legs = points_to_routes([int(points[i]["code"]) for i in range(len(points))])
                 result = Timedelta(milliseconds=int(results[person['id']]['result_msec']))
                 splits = [Timedelta(milliseconds=i['leg_time']) for i in points[1:-1]]
                 splits += [result - Timedelta(milliseconds=points[-2]['relative_time'])]

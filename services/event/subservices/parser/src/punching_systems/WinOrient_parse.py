@@ -5,7 +5,7 @@ import pandas as pd
 from bs4 import BeautifulSoup as BS
 from pandas import Timedelta
 
-from src.services.event.parser.src.utils import points_to_routes, fill_GD, dispersions, null, bs
+from src.services.event.subservices.parser.src.punching_systems.utils import points_to_routes, fill_GD, dispersions, null, bs
 
 global log
 
