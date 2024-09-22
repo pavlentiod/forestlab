@@ -18,6 +18,10 @@ class Event(Base):
     status: Mapped[bool] = mapped_column(Boolean, nullable=False)
     splits: Mapped[str] = mapped_column(JSONB, nullable=False, server_default="{}", default="{}")
     courses: Mapped[str] = mapped_column(JSONB, nullable=False, server_default="{}", default="{}")
+    results: Mapped[str] = mapped_column(JSONB, nullable=False, server_default="{}", default="{}")
+    groups: Mapped[str] = mapped_column(JSONB, nullable=False, server_default="{}", default="{}")
+    runners: Mapped[str] = mapped_column(JSONB, nullable=False, server_default="{}", default="{}")
+    legs: Mapped[str] = mapped_column(JSONB, nullable=False, server_default="{}", default="{}")
     date: Mapped[datetime] = mapped_column(
         DateTime(timezone=False), server_default=func.now())
 
