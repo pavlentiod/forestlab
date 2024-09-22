@@ -3,7 +3,7 @@ from uuid import uuid4, UUID
 
 from pandas import DataFrame
 
-from src.schemas.single_event_statistics.single_event_schema import LegOutput, CourseOutput
+from src.schemas.single_event_data.single_event_data_schema import LegOutput, CourseOutput
 
 
 def create_legs_id(legs: list) -> Dict[UUID]:
