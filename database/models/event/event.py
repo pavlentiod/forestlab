@@ -1,10 +1,14 @@
 from datetime import datetime
+from typing import TYPE_CHECKING
 
 from sqlalchemy import String, Integer, Boolean, func, DateTime
-from sqlalchemy.dialects.postgresql import JSON, JSONB
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.dialects.postgresql import JSONB
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from src.database.base import Base
+
+if TYPE_CHECKING:
+    from src.database.models.track.track import Track
 
 
 class Event(Base):
@@ -16,3 +20,5 @@ class Event(Base):
     courses: Mapped[str] = mapped_column(JSONB, nullable=False, server_default="{}", default="{}")
     date: Mapped[datetime] = mapped_column(
         DateTime(timezone=False), server_default=func.now())
+
+    tracks: Mapped[list["Track"]] = relationship(back_populates="event_rel")
