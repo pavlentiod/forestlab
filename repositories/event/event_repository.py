@@ -1,11 +1,11 @@
 import json
 from typing import List, Optional, Type
+from uuid import UUID
 
-from pydantic import UUID4
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from src.database.models.event.event import Event
-from src.schemas.event.event_schema import EventInput, EventInDB
+from src.schemas.event.event_schema import EventInput, EventInDB, EventUpdate
 
 
 class EventRepository:
@@ -29,11 +29,11 @@ class EventRepository:
         entities = result.scalars().all()
         return [EventInDB(**event.__dict__) for event in entities]
 
-    async def get_event(self, _id: UUID4) -> EventInDB:
+    async def get_event(self, _id: UUID) -> EventInDB:
         event = await self.session.get(Event, _id)
         return EventInDB(**event.__dict__)
 
-    async def get_by_id(self, _id: UUID4) -> Optional[Event]:
+    async def get_by_id(self, _id: UUID) -> Optional[Event]:
         return await self.session.get(Event, _id)
 
     async def get_by_source_link(self, link: str) -> Optional[EventInDB]:
@@ -43,7 +43,7 @@ class EventRepository:
         if event:
             return EventInDB(**event.__dict__)
 
-    async def update(self, event: Type[Event], data: EventInput) -> EventInDB:
+    async def update(self, event: Type[Event], data: EventUpdate) -> EventInDB:
         for key, value in data.model_dump(exclude_none=True).items():
             setattr(event, key, value)
         await self.session.commit()
